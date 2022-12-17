@@ -14,70 +14,43 @@
 # You should have received a copy of the GNU General Public License along
 # with GNtools. If not, see <https://www.gnu.org/licenses/>.
 
-import logging
+import gi
 
-import tkinter as tk
-from tkinter import ttk
+gi.require_version('Gtk', '3.0')
+from gi.repository import Gtk, GtkSource, GObject
 
-from aboutui import cb_authors, cb_warranty, cb_gpl
-from fastaui import cb_fasta_extract
+# Register GtkSourceView
+GObject.type_register(GtkSource.View)
 
-from fasta import FastaReader
+handlers = {}
+from fastaui import uihandlers
+handlers |= uihandlers
 
-# logging.basicConfig(level=logging.DEBUG)
-# fastar = FastaReader('/home/goodspeed/Bio/asm/ncbi-genomes-2022-12-14/GCF_000001405.40_GRCh38.p14_genomic.fna.gz')
-# seq = fastar.find_seq('NW_009646206.1')
-# seq.slice(100, 1)
-# seq.complement()
-# print(seq.build_text())
+def open_about_dialog(menu_item):
+    builder = Gtk.Builder()
+    builder.add_from_file('res/about.glade')
+    dialog = builder.get_object('dialog')
+    dialog.run()
+    dialog.destroy()
 
-class LabelSeparator (tk.Frame):
-    def __init__ (self, parent, text="", width="", font="Monospace 10", *args):
-        tk.Frame.__init__ (self, parent, *args)
+class Launcher():
+    def __init__(self):
+        builder = Gtk.Builder()
+        builder.add_from_file('res/main.glade')
+        builder.connect_signals(handlers)
 
-        self.separator = ttk.Separator(self, orient = tk.HORIZONTAL)
-        self.separator.grid (row = 0, column = 0, sticky = "ew")
+        self.window = builder.get_object('mainwin')
 
-        self.label = ttk.Label(self, text = text)
-        self.label.configure(font=font)
-        self.label.grid(row = 0, column = 0, padx = width)
+        self.fasta_extract_btn = builder.get_object('')
 
-def append_text(fm, text, font="Monospace 20"):
-	label = tk.Label(fm, text=text)
-	label.configure(font=font)
-	label.pack()
+        self.about_btn = builder.get_object('about_btn')
+        self.about_btn.connect('activate', open_about_dialog)
 
-def blank_line(fm):
-	append_text(fm, "", "Monospace 10")
+    def show(self):
+        self.window.show()
+    
 
-root = tk.Tk()
-root.geometry('350x500')
-
-frame = tk.Frame(root)
-
-# The Banner
-append_text(frame, "Welcome to GNtools!", "Monospace 20")
-append_text(frame, """This is free software: you are free to change
-and redistribute it. There is NO WARRANTY, to
-the extent permitted by law.""", "Monospace 10")
-blank_line(frame)
-
-# SEQUENCE TOOLKIT
-LabelSeparator(frame, text="Sequence Toolkit", width=70, font="Monospace 13").pack()
-tk.Button(frame, text="Fasta Extract", command=cb_fasta_extract).pack()
-
-# COPYRIGHT
-LabelSeparator(frame, text="About", width=70, font="Monospace 13").pack()
-
-append_text(frame, "GNtools is written by its authors.", "Monospace 10")
-tk.Button(frame, text="Authors of GNtools", command=cb_authors).pack()
-
-append_text(frame, "GNtools comes with ABSOLUTELY NO WARRANTY.", "Monospace 10")
-tk.Button(frame, text="Disclamier of Warranty", command=cb_warranty).pack()
-
-append_text(frame, """GNtools is free software, and you are welcome
-redistribute it under terms of:""", "Monospace 10")
-tk.Button(frame, text="GNU General Public License", command=cb_gpl).pack()
-
-frame.pack()
-root.mainloop()
+launcher = Launcher()
+launcher.window.connect('destroy', Gtk.main_quit)
+launcher.show()
+Gtk.main()

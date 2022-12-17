@@ -19,7 +19,6 @@ import math
 import json
 import gzip
 import fnmatch
-import shutil
 import os.path
 import logging
 
@@ -39,12 +38,6 @@ comp_map = {
 	'c': 'g', 'g': 'c',
 	'r': 'y', 'y': 'r',
 }
-
-def extract_gzfasta(inp, outp):
-	"""Extract the gz format fasta file."""
-	with gzip.open(inp, 'rb') as f_in:
-		with open(outp, 'wb') as f_out:
-			shutil.copyfileobj(f_in, f_out)
 
 class FastaSequence():
 	"""FASTA Sequence Object"""
@@ -71,40 +64,48 @@ class FastaSequence():
 
 class FastaReader():
 	"""Read an entire fasta sequence file."""
-	def update_progress(self, name, finished, total):
-		if callable(self.progress_cb):
-			self.progress_cb(name, 100*(finished/total))
-
-	def __init__(self, fasta_path, progress_cb=None):
+	def __init__(self, fasta_path, callbacks, nproc=1):
 		self.fasta_path = fasta_path
 		self.index_path = f'{os.path.dirname(fasta_path)}/{os.path.basename(fasta_path)}.idx'
 
 		self.index = []
-		self.running = False
-		self.progress_cb = progress_cb
+		self.nproc = nproc
+		self.callbacks = callbacks
 
 		if not os.path.isfile(fasta_path):
 			raise FileNotFoundError('Cannot find target fasta file, enter a valid one')
 
 		if self.fasta_path.endswith('.gz'):
+			self.orig_path = fasta_path
 			self.fasta_path = f'{os.path.dirname(fasta_path)}/{os.path.basename(fasta_path)}.txt'
-			if not os.path.exists(self.fasta_path):
-				logging.info('extract fasta gz to plain text')
-				extract_gzfasta(fasta_path, self.fasta_path)
 
-		self.fasta_f = open(self.fasta_path, 'r', encoding='utf-8')
+		if os.path.exists(self.fasta_path):
+			self.fasta_f = open(self.fasta_path, 'r', encoding='utf-8')
 
 		if not os.path.exists(self.index_path):
-			self.build_index()
+			logging.info('target fasta does not have a vaild index, rebuild')
+			t = Thread(target=self.build_index_thread)
+			t.start()
 		else:
 			with open(self.index_path, 'r', encoding='utf-8') as idx_f:
 				self.index = json.load(idx_f)
-
-		self.update_progress('READY', 1, 1)
+			self.callbacks['state'](1, 'Initialized, Ready for Execution')
 
 	def build_index_thread(self):
 		begin_idx = []
-		self.running = True
+
+		if not os.path.exists(self.fasta_path):
+			logging.info('extract fasta gz to plain text')
+			with gzip.open(self.orig_path, 'rb') as f_in:
+				with open(self.fasta_path, 'wb') as f_out:
+					while True:
+						block = f_in.read(65536)
+						if not block:
+							break
+						else:
+							f_out.write(block)
+						self.callbacks['progress']('Extracting the FASTA file...', -1)
+			self.fasta_f = open(self.fasta_path, 'r', encoding='utf-8')
 
 		self.fasta_f.seek(0, os.SEEK_END)
 		tlen = self.fasta_f.tell()
@@ -128,23 +129,27 @@ class FastaReader():
 			fr.close()
 
 		tinfo = []
-		tbloc = math.ceil(tlen/blksize)
-		blocp = math.floor(tbloc/nproc)
 
-		[ tinfo.append(blocp) for i in range(nproc) ]
-		tinfo[-1] += tbloc - blocp * nproc
+		if self.nproc*blksize > tlen:
+			self.nproc = 1
+
+		tbloc = math.ceil(tlen/blksize)
+		blocp = math.floor(tbloc/self.nproc)
+
+		[ tinfo.append(blocp) for i in range(self.nproc) ]
+		tinfo[-1] += tbloc - blocp * self.nproc
 		self.tbloc = tbloc
 
 		finbk = Value('i', 0)
 		queue = Queue()
 
 		process_pool = []
-		for i in range(nproc):
+		for i in range(self.nproc):
 			process_pool.append(Process(target=find, args=(queue, tinfo[i]*blksize*i, tinfo[i], finbk)))
-		[ process_pool[i].start() for i in range(nproc) ]
+		[ process_pool[i].start() for i in range(self.nproc) ]
 
 		while True:
-			self.update_progress('Index the FASTA file...', finbk.value, tbloc)
+			self.callbacks['progress']('Index the FASTA file...', finbk.value/tbloc)
 			try:
 				begin_idx += queue.get(timeout=1)
 			except:
@@ -166,18 +171,11 @@ class FastaReader():
 			    'desc': desl[desl.index(' ') + 1:],
 			    'fidx': begin_idx[i]
 			})
-			self.update_progress('Resolve the index and cache it...', i, len(begin_idx))
+			self.callbacks['progress']('Resolve the index and cache it...', i/len(begin_idx))
 		# Cache the index data.
 		with open(self.index_path, 'w') as idx_f:
 			idx_f.write(json.dumps(self.index))
-
-		self.running = False
-
-	def build_index(self):
-		"""Build the index of fasta file."""
-		logging.info('target fasta does not have a vaild index, rebuild')
-		t = Thread(target=self.build_index_thread)
-		t.start()
+		self.callbacks['state'](1, 'Initialized')
 
 	def find_seq(self, name):
 		"""Find a FastaSequence from the file."""
@@ -218,3 +216,6 @@ class FastaReader():
 				data += databuf.strip()
 			seqs.append(FastaSequence(seq['name'], seq['desc'], data))
 		return seqs
+
+	def search(script):
+		print(script)
