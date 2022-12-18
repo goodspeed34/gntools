@@ -34,7 +34,10 @@ handlers |= uihandlers
 where_am_i = abspath(dirname(realpath(__file__)))
 local_dir = join(where_am_i, 'locales')
 locale.setlocale(locale.LC_ALL, '')
-locale.bindtextdomain('GNtools', local_dir)
+try:
+    locale.bindtextdomain('GNtools', local_dir)
+except:
+    pass # Windows Specfic
 gettext.bindtextdomain('GNtools', local_dir)
 gettext.textdomain('GNtools')
 _ = gettext.gettext
