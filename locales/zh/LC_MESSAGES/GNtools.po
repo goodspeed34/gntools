@@ -1,0 +1,239 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-12-18 19:26+0800\n"
+"PO-Revision-Date: 2022-12-18 19:28+0800\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.2.2\n"
+
+#: fastaui.py:28
+msgid ""
+"# README (`#' will start a line of comment)\n"
+"# Single Gene Extract:\n"
+"#   Unigene_1\n"
+"# Chromosome Range Exract:\n"
+"#   Chr0\t100\t200\n"
+"# Chromosome Range Extract and Rename:\n"
+"#   BabyChr\tChr0\t200\t100\n"
+msgstr ""
+"# 自述文件（使用井号开始的行是注释）\n"
+"# 单基因提取：\n"
+"#   Unigene_1\n"
+"# 染色体区段提取：\n"
+"#   Chr0\t100\t200\n"
+"# 染色体区段提取并更名：\n"
+"#   BabyChr\tChr0\t200\t100\n"
+
+#: fastaui.py:142
+msgid "<span foreground=\"blue\">Searching, Please wait</span>"
+msgstr "<span foreground=\"blue\">正在搜索，请稍候</span>"
+
+#: res/fasta_extract.glade:129
+msgid "<span foreground=\"red\">Need Initialize</span>"
+msgstr "<span foreground=\"red\">需要初始化</span>"
+
+#: res/about.glade:10
+msgid "A free (as in freedom) bioinfomatics tookit"
+msgstr "自由的生物信息学工具箱"
+
+#: res/fasta_extract.glade:277
+msgid "Case Insensitive"
+msgstr "忽略大小写"
+
+#: res/about.glade:9
+msgid "Copyright (C) 2022 William Goodspeed (龚志乐)"
+msgstr "版权所有 © 2022 龚志乐"
+
+#: fastaui.py:131 fastaui.py:136
+msgid "ERROR: Cannot perform the FASTA extract!"
+msgstr "错误：无法执行 FASTA 序列提取！"
+
+#: res/fasta_extract.glade:73
+msgid "Execute"
+msgstr "执行"
+
+#: fasta.py:108
+msgid "Extracting the FASTA file..."
+msgstr "正在解压缩 FASTA 文件……"
+
+#: fastaui.py:202
+msgid "FASTA Extract"
+msgstr "FASTA 序列提取"
+
+#: res/main.glade:62
+msgid "FASTA Extract (Recommend)"
+msgstr "FASTA 序列提取（推荐）"
+
+#: res/main.glade:52
+msgid "FASTA Tools"
+msgstr "FASTA 工具"
+
+#: res/fasta_extract.glade:91
+msgid "IDLE"
+msgstr "空闲"
+
+#: fasta.py:153
+msgid "Index the FASTA file..."
+msgstr "正在为 FAST 文件建立索引……"
+
+#: res/fasta_extract.glade:58
+msgid "Initialize"
+msgstr "初始化"
+
+#: res/fasta_extract.glade:62
+msgid "Initialize the fasta reader, should do before execute."
+msgstr "初始化 FASTA 读取器，需要在执行前完成。"
+
+#: fasta.py:179
+msgid "Initialized"
+msgstr "初始化完成"
+
+#: fasta.py:93
+msgid "Initialized, Ready for Execution"
+msgstr "初始化完成，等待执行"
+
+#: res/fasta_extract.glade:48
+msgid "Input fasta file"
+msgstr "输入 FASTA 文件"
+
+#: res/fasta_extract.glade:141
+msgid "Input file: "
+msgstr "输入文件： "
+
+#: res/fasta_extract.glade:175
+msgid "Insert source"
+msgstr "插入源代码"
+
+#: res/fasta_extract.glade:45
+msgid "Interactively choose an input fasta file."
+msgstr "交互式选取输入 FASTA 文件。"
+
+#: res/fasta_extract.glade:251
+msgid "Just Show In Dialog"
+msgstr "只输出到对话框"
+
+#: res/about.glade:15
+msgid "Kiri (张博昱)"
+msgstr "Kiri (张博昱)"
+
+#: res/fasta_extract.glade:264
+msgid "Match Description"
+msgstr "匹配基因描述"
+
+#: res/result_dialog.glade:25
+msgid "OK"
+msgstr "好"
+
+#: res/fasta_extract.glade:152
+msgid "Output file:"
+msgstr "输出文件："
+
+#: fastaui.py:87
+msgid "Please choose an output file"
+msgstr "请选取输出文件"
+
+#: fasta.py:175
+msgid "Resolve the index and cache it..."
+msgstr "正在解析索引并缓存数据……"
+
+#: fasta.py:219 fasta.py:266
+msgid "Searching for your sequences..."
+msgstr "正在搜索你的序列……"
+
+#: res/about.glade:12
+msgctxt "About Page, link to the website"
+msgid "Source Code & Bug Tracker"
+msgstr "源代码与缺陷追踪器"
+
+#: res/fasta_extract.glade:186
+msgid "Source from file: "
+msgstr "从文件导入： "
+
+#: res/fasta_extract.glade:209
+msgid "Thread Count: "
+msgstr "线程数： "
+
+#: res/main.glade:155
+msgid "Welcome"
+msgstr "欢迎"
+
+#: res/main.glade:6
+msgid ""
+"Welcome to GNtools!\n"
+"-----------------------\n"
+"Copyright (C) 2022  William Goodspeed (龚志乐)\n"
+"\n"
+"This program comes with ABSOLUTELY NO WARRANTY. This is\n"
+"free software, and you are welcome to redistribute it\n"
+"under certain conditions; See the GNU General Public \n"
+"License, version 3 or later for details.\n"
+"\n"
+"Pick your interested tool in the menubar and have fun!\n"
+"\n"
+"If you don't know how to use GNtools (or TBtools), check\n"
+"out our documentation at: https://example.org\n"
+"\n"
+"------\n"
+"William Goodspeed,\n"
+"Langfang, Hebei, PRC"
+msgstr ""
+"欢迎来到 GNtools！\n"
+"-----------------------\n"
+"版权所有 © 2022 龚志乐\n"
+"\n"
+"本程序是自由软件，以 GNU 通用公共许可证，第 3 版及以上\n"
+"发布。本程序不作任何担保。你可以在遵守上述许可证的情况下\n"
+"重新分发本程序。\n"
+"\n"
+"选一个你感兴趣的工具然后开始吧！\n"
+"\n"
+"如果你之前没有使用过 TBtools 也不知道如何使用 GNtools，请\n"
+"查看我们的官方文档：https://example.org。\n"
+"\n"
+"------\n"
+"龚志乐\n"
+"中国河北省廊坊市"
+
+#: fastaui.py:137
+msgid "You must either specify an output file or toggle Just Show In Dialog."
+msgstr "你必须选定输出文件或打开“只输出到对话框”。"
+
+#: fastaui.py:132
+msgid "You must initialize first and wait until it completes."
+msgstr "你必须先初始化并等待其完成。"
+
+#: res/main.glade:111
+msgid "_About"
+msgstr "_关于"
+
+#: res/main.glade:79
+msgid "_BLAST"
+msgstr "_BLAST"
+
+#: res/main.glade:87
+msgid "_GO & KEGG"
+msgstr "_GO & KEGG"
+
+#: res/main.glade:95
+msgid "_Grahphics"
+msgstr "_图标"
+
+#: res/main.glade:103
+msgid "_Miscellaneous"
+msgstr "_杂项"
+
+#: res/main.glade:42
+msgid "_Sequence Toolkit"
+msgstr "_序列工具"

@@ -218,7 +218,7 @@
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="hexpand">True</property>
-                    <property name="text" translatable="yes">1</property>
+                    <property name="text" translatable="no">1</property>
                     <property name="input-purpose">digits</property>
                   </object>
                   <packing>

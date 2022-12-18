@@ -14,6 +14,10 @@
 # You should have received a copy of the GNU General Public License along
 # with GNtools. If not, see <https://www.gnu.org/licenses/>.
 
+import gettext
+import locale
+from os.path import abspath, dirname, join, realpath
+
 import gi
 
 gi.require_version('Gtk', '3.0')
@@ -26,8 +30,18 @@ handlers = {}
 from fastaui import uihandlers
 handlers |= uihandlers
 
+# Initialize localization
+where_am_i = abspath(dirname(realpath(__file__)))
+local_dir = join(where_am_i, 'locales')
+locale.setlocale(locale.LC_ALL, '')
+locale.bindtextdomain('GNtools', local_dir)
+gettext.bindtextdomain('GNtools', local_dir)
+gettext.textdomain('GNtools')
+_ = gettext.gettext
+
 def open_about_dialog(menu_item):
     builder = Gtk.Builder()
+    builder.set_translation_domain('GNtools')
     builder.add_from_file('res/about.glade')
     dialog = builder.get_object('dialog')
     dialog.run()
@@ -36,6 +50,7 @@ def open_about_dialog(menu_item):
 class Launcher():
     def __init__(self):
         builder = Gtk.Builder()
+        builder.set_translation_domain('GNtools')
         builder.add_from_file('res/main.glade')
         builder.connect_signals(handlers)
 

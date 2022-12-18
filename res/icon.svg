@@ -2,9 +2,9 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="81.031158mm"
-   height="81.200348mm"
-   viewBox="0 0 81.031158 81.200348"
+   width="108.31633mm"
+   height="108.31632mm"
+   viewBox="0 0 108.31633 108.31632"
    version="1.1"
    id="svg5"
    xmlns="http://www.w3.org/2000/svg"
@@ -13,13 +13,13 @@
      id="defs2" />
   <g
      id="layer1"
-     transform="translate(-67.894441,-94.025998)">
+     transform="translate(-54.251851,-80.461507)">
     <circle
-       style="display:inline;fill:#999999;fill-opacity:1;stroke:#000000;stroke-width:0.264583;stroke-opacity:1"
+       style="display:inline;fill:#999999;fill-opacity:0;stroke:#000000;stroke-width:0.353675;stroke-opacity:0"
        id="path990"
        cx="170.78906"
        cy="-26.575996"
-       r="40.377171"
+       r="53.97316"
        transform="rotate(60)" />
     <path
        style="fill:#000000;stroke-width:0.264583"
@@ -38,15 +38,15 @@
        d="m 143.37767,114.43108 -34.96765,20.18858 z"
        id="path3729" />
     <path
-       style="fill:#d35f5f;fill-opacity:1;stroke:#000000;stroke-width:0.264583;stroke-opacity:1"
+       style="fill:#c51c2d;fill-opacity:1;stroke:#000000;stroke-width:0.264583;stroke-opacity:1"
        d="m 108.41002,134.61966 34.96765,-20.18858 v 40.37718 l -34.96764,20.18857 -34.96767,-20.18858 4e-6,-40.37717 34.967656,-20.188588 34.96765,20.188588 z"
        id="path3731" />
     <path
-       style="fill:#00ce66;fill-opacity:1;stroke:#000000;stroke-width:0.264583;stroke-opacity:1"
+       style="fill:#62c505;fill-opacity:1;stroke:#000000;stroke-width:0.264583;stroke-opacity:1"
        d="M 143.37767,114.43108 108.41002,134.61966 73.440002,114.43517 108.41474,94.242496 143.37767,114.43108"
        id="path3796" />
     <path
-       style="fill:#5f5fd3;fill-opacity:1;stroke:#000000;stroke-width:0.265;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:#1c97f5;fill-opacity:1;stroke:#000000;stroke-width:0.265;stroke-dasharray:none;stroke-opacity:1"
        d="m 108.41002,134.61966 0.005,40.37718 -34.9723,-20.18859 -0.0024,-40.37308 z"
        id="path3852" />
     <path
@@ -59,30 +59,20 @@
        id="path20823" />
     <path
        style="fill:#d35f5f;fill-opacity:1;stroke:#000000;stroke-width:0.264999;stroke-dasharray:none;stroke-opacity:1"
+       d="m 117.14387,129.33001 v 40.37717 z"
+       id="path20823-3" />
+    <path
+       style="fill:#d35f5f;fill-opacity:1;stroke:#000000;stroke-width:0.264999;stroke-dasharray:none;stroke-opacity:1"
        d="m 90.925013,124.52741 0.0012,40.37513 z"
        id="path20825" />
     <path
        style="fill:#d35f5f;fill-opacity:1;stroke:#000000;stroke-width:0.264999;stroke-dasharray:none;stroke-opacity:1"
        d="M 108.41234,154.80825 73.442366,134.61966 Z"
        id="path20827" />
-    <circle
-       style="fill:#ececec;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
-       id="path29857-5-5"
-       cx="170.78574"
-       cy="-6.3853383"
-       r="0.11899965"
-       transform="rotate(60)" />
     <path
        style="fill:#d35f5f;fill-opacity:1;stroke:#000000;stroke-width:0.264999;stroke-dasharray:none;stroke-opacity:1"
        d="m 143.37767,134.61967 -34.96541,20.18844 z"
        id="path20829" />
-    <circle
-       style="fill:#ececec;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
-       id="path29857-5-3"
-       cx="188.27339"
-       cy="-36.671295"
-       r="0.11899965"
-       transform="rotate(60)" />
     <path
        style="fill:#d35f5f;fill-opacity:1;stroke:#000000;stroke-width:0.264999;stroke-dasharray:none;stroke-opacity:1"
        d="M 90.925015,124.52742 125.89389,104.33686 Z"
@@ -132,5 +122,49 @@
        style="fill:#ececec;fill-opacity:1;stroke:#c3c3c3;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
        d="M 108.29707,134.67418 73.442667,114.4367 Z"
        id="path30031" />
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.265;stroke-dasharray:none;stroke-opacity:1"
+       d="m 73.577281,125.11927 34.913529,20.18861 z"
+       id="path376" />
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.265;stroke-dasharray:none;stroke-opacity:1"
+       d="M 73.809792,145.89969 108.72332,166.0883 Z"
+       id="path376-3" />
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.264999;stroke-dasharray:none;stroke-opacity:1"
+       d="m 143.44392,125.00456 -35.03258,20.25736 z"
+       id="path5500" />
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.264999;stroke-dasharray:none;stroke-opacity:1"
+       d="m 143.25772,145.89969 -35.03258,20.25736 z"
+       id="path5500-6" />
+    <path
+       style="fill:#d35f5f;fill-opacity:1;stroke:#000000;stroke-width:0.264999;stroke-dasharray:none;stroke-opacity:1"
+       d="M 117.21012,129.21526 82.243646,109.02872 Z"
+       id="path20821-7" />
+    <path
+       style="fill:#d35f5f;fill-opacity:1;stroke:#000000;stroke-width:0.264999;stroke-dasharray:none;stroke-opacity:1"
+       d="M 134.7596,119.00724 99.793131,98.820699 Z"
+       id="path20821-5" />
+    <path
+       style="fill:#d35f5f;fill-opacity:1;stroke:#000000;stroke-width:0.264999;stroke-dasharray:none;stroke-opacity:1"
+       d="m 134.95835,119.12199 v 40.37717 z"
+       id="path20823-5" />
+    <path
+       style="fill:#d35f5f;fill-opacity:1;stroke:#000000;stroke-width:0.264999;stroke-dasharray:none;stroke-opacity:1"
+       d="m 99.859383,129.33001 v 40.37717 z"
+       id="path20823-6" />
+    <path
+       style="fill:#d35f5f;fill-opacity:1;stroke:#000000;stroke-width:0.264999;stroke-dasharray:none;stroke-opacity:1"
+       d="m 82.0449,119.12199 v 40.37717 z"
+       id="path20823-2" />
+    <path
+       style="fill:#d35f5f;fill-opacity:1;stroke:#000000;stroke-width:0.264999;stroke-dasharray:none;stroke-opacity:1"
+       d="M 99.791929,129.74644 134.7608,109.55588 Z"
+       id="path20831-7" />
+    <path
+       style="fill:#d35f5f;fill-opacity:1;stroke:#000000;stroke-width:0.264999;stroke-dasharray:none;stroke-opacity:1"
+       d="M 82.242448,119.53842 117.21132,99.347855 Z"
+       id="path20831-0" />
   </g>
 </svg>

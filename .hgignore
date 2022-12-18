@@ -1,3 +1,6 @@
 syntax: glob
 __pycache__/
+dist/
+build/
+locales/*.pot*
 *~

@@ -23,14 +23,16 @@ import tempfile
 from threading import Thread
 from fasta import FastaReader
 
-def_readme = '''# README (`#' will start a line of comment)
+from gettext import gettext as _
+
+def_readme = _('''# README (`#' will start a line of comment)
 # Single Gene Extract:
 #   Unigene_1
 # Chromosome Range Exract:
 #   Chr0	100	200
 # Chromosome Range Extract and Rename:
 #   BabyChr	Chr0	200	100
-'''
+''')
 
 class FastaExtractUI():
 	input_file = None
@@ -82,7 +84,7 @@ class FastaExtractUI():
 			buf.set_text(f.read())
 
 	def outp_btn_clicked(self, btn):
-		dialog = Gtk.FileChooserDialog(title="Please choose an output file",
+		dialog = Gtk.FileChooserDialog(title=_("Please choose an output file"),
                                        action=Gtk.FileChooserAction.SAVE)
 		dialog.add_buttons(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
                            Gtk.STOCK_OPEN, Gtk.ResponseType.OK)
@@ -103,6 +105,7 @@ class FastaExtractUI():
 		if self.show_dialog.get_active():
 			self.out_f.seek(0)
 			builder = Gtk.Builder()
+			builder.set_translation_domain('GNtools')
 			builder.add_from_file('res/result_dialog.glade')
 
 			dialog = builder.get_object('result_dialog')
@@ -125,18 +128,18 @@ class FastaExtractUI():
 
 	def exec_btn_clicked(self, btn):
 		if not self.status:
-			self.error_out("ERROR: Cannot perform the FASTA extract!",
-			               "You must initialize first and wait until it completes.")
+			self.error_out(_("ERROR: Cannot perform the FASTA extract!"),
+			               _("You must initialize first and wait until it completes."))
 			return
 		if self.output_file_entry.get_text() == '':
 			if not self.show_dialog.get_active():
-				self.error_out("ERROR: Cannot perform the FASTA extract!",
-				               "You must either specify an output file or toggle Just Show In Dialog.")
+				self.error_out(_("ERROR: Cannot perform the FASTA extract!"),
+				               _("You must either specify an output file or toggle Just Show In Dialog."))
 				return
 
 		self.execin = True
 		self.status = False
-		self.status_label.set_markup(f'<span foreground="blue">Searching, Please wait</span>')
+		self.status_label.set_markup(_(f'<span foreground="blue">Searching, Please wait</span>'))
 
 		if self.show_dialog.get_active():
 			self.out_f = tempfile.TemporaryFile(mode='w+', encoding='utf-8')
@@ -165,6 +168,7 @@ class FastaExtractUI():
 	def __init__(self, parent):
 		self.parent = parent
 		builder = Gtk.Builder()
+		builder.set_translation_domain('GNtools')
 		builder.add_from_file('res/fasta_extract.glade')
 
 		self.view = builder.get_object('mainview')
@@ -195,7 +199,7 @@ class FastaExtractUI():
 
 def sig_fasta_extract(notebook):
 	ui = FastaExtractUI(notebook.get_toplevel())
-	page = notebook.append_page(ui.view, Gtk.Label(label='FASTA Extract'))
+	page = notebook.append_page(ui.view, Gtk.Label(label=_('FASTA Extract')))
 	notebook.set_current_page(page)
 
 uihandlers = {

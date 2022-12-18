@@ -25,8 +25,9 @@ import logging
 from threading import Thread
 from multiprocessing import Process, Queue, Value
 
+from gettext import gettext as _
+
 blksize = 10*1024*1024
-nproc = 4
 NW = '\n'
 
 comp_map = {
@@ -89,7 +90,7 @@ class FastaReader():
 		else:
 			with open(self.index_path, 'r', encoding='utf-8') as idx_f:
 				self.index = json.load(idx_f)
-			self.callbacks['state'](1, 'Initialized, Ready for Execution')
+			self.callbacks['state'](1, _('Initialized, Ready for Execution'))
 
 	def build_index_thread(self):
 		begin_idx = []
@@ -104,7 +105,7 @@ class FastaReader():
 							break
 						else:
 							f_out.write(block)
-						self.callbacks['progress']('Extracting the FASTA file...', -1)
+						self.callbacks['progress'](_('Extracting the FASTA file...'), -1)
 			self.fasta_f = open(self.fasta_path, 'r', encoding='utf-8')
 
 		self.fasta_f.seek(0, os.SEEK_END)
@@ -149,7 +150,7 @@ class FastaReader():
 		[ process_pool[i].start() for i in range(self.nproc) ]
 
 		while True:
-			self.callbacks['progress']('Index the FASTA file...', finbk.value/tbloc)
+			self.callbacks['progress'](_('Index the FASTA file...'), finbk.value/tbloc)
 			try:
 				begin_idx += queue.get(timeout=1)
 			except:
@@ -171,11 +172,11 @@ class FastaReader():
 			    'desc': desl[desl.index(' ') + 1:],
 			    'fidx': begin_idx[i]
 			})
-			self.callbacks['progress']('Resolve the index and cache it...', i/len(begin_idx))
+			self.callbacks['progress'](_('Resolve the index and cache it...'), i/len(begin_idx))
 		# Cache the index data.
 		with open(self.index_path, 'w') as idx_f:
 			idx_f.write(json.dumps(self.index))
-		self.callbacks['state'](1, 'Initialized')
+		self.callbacks['state'](1, _('Initialized'))
 
 	def find_seq(self, name):
 		"""Find a FastaSequence from the file."""
@@ -215,7 +216,7 @@ class FastaReader():
 					break
 				data += databuf.strip()
 			seqs.append(FastaSequence(seq['name'], seq['desc'], data))
-			self.callbacks['progress']('Searching for your sequences...', -1)
+			self.callbacks['progress'](_('Searching for your sequences...'), -1)
 		return seqs
 
 	def search(self, script, f, fincb, desc_match=False, ignore_case=False):
@@ -262,4 +263,4 @@ class FastaReader():
 				for seq in seqs:
 					f.write('\n')
 					f.write(seq.build_text())
-		self.callbacks['progress']('Searching for your sequences...', 1)
+		self.callbacks['progress'](_('Searching for your sequences...'), 1)
