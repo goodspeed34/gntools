@@ -215,7 +215,51 @@ class FastaReader():
 					break
 				data += databuf.strip()
 			seqs.append(FastaSequence(seq['name'], seq['desc'], data))
+			self.callbacks['progress']('Searching for your sequences...', -1)
 		return seqs
 
-	def search(script):
-		print(script)
+	def search(self, script, f, fincb, desc_match=False, ignore_case=False):
+		for statm in script.split('\n'):
+			# Skip the comment.
+			if statm.startswith('#'):
+				continue
+
+			# Select a range of sequence of FASTA and rename it.
+			match = re.findall(R'\s*(.*?)\s(.*?)\s([\d\.?]+)\s([\d\.?]+)\s*', statm)
+			if match != []:
+				match = match[0]
+				seqs = self.find_seqs(match[1], desc_match, ignore_case)
+
+				for seq in seqs:
+					if len(seqs) > 1:
+						seq.name = f'{match[0]}_{seqs.index(seq)}'
+					else:
+						seq.name = f'{match[0]}'
+					seq.slice(int(match[2]), int(match[3]))
+					if (int(match[2]) > int(match[3])):
+						seq.complement()
+					f.write('\n')
+					f.write(seq.build_text())
+				continue
+
+			# Select a range of sequence of FASTA.
+			match = re.findall(R'\s*(.*?)\s([\d\.?]+)\s([\d\.?]+)\s*', statm)
+			if match != []:
+				match = match[0]
+				seqs = self.find_seqs(match[0], desc_match, ignore_case)
+
+				for seq in seqs:
+					seq.slice(int(match[1]), int(match[2]))
+					if (int(match[1]) > int(match[2])):
+						seq.complement()
+					f.write('\n')
+					f.write(seq.build_text())
+				continue
+
+			# Select a sequence
+			if statm != '':
+				seqs = self.find_seqs(statm, desc_match, ignore_case)
+				for seq in seqs:
+					f.write('\n')
+					f.write(seq.build_text())
+		self.callbacks['progress']('Searching for your sequences...', 1)

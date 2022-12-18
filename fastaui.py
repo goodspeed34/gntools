@@ -17,19 +17,41 @@
 import gi
 
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk
+from gi.repository import Gtk, Gdk
 
+import tempfile
 from threading import Thread
 from fasta import FastaReader
+
+def_readme = '''# README (`#' will start a line of comment)
+# Single Gene Extract:
+#   Unigene_1
+# Chromosome Range Exract:
+#   Chr0	100	200
+# Chromosome Range Extract and Rename:
+#   BabyChr	Chr0	200	100
+'''
 
 class FastaExtractUI():
 	input_file = None
 	status = False
 
+	def error_out(self, title, message):
+		dialog = Gtk.MessageDialog(flags=0,
+		                           transient_for=self.parent,
+		                           message_type=Gtk.MessageType.ERROR,
+		                           buttons=Gtk.ButtonsType.CANCEL,
+		                           text=title)
+		dialog.format_secondary_text(message)
+		dialog.run()
+		dialog.destroy()
+
 	def update_progress_cb(self, title, percent):
 		self.progress_bar.set_text(title)
 		if percent >= 0:
 			self.progress_bar.set_fraction(percent)
+			if percent == 1 and self.execin:
+				self.execin = False
 		else:
 			self.progress_bar.pulse()
 
@@ -74,17 +96,74 @@ class FastaExtractUI():
 			self.output_file_entry.set_text(dialog.get_filename())
 		dialog.destroy()
 
+	def exec_finish_cb(self):
+		self.status = True
+		self.status_label.set_markup(f'<span foreground="green">OK</span>')
+
+		if self.show_dialog.get_active():
+			self.out_f.seek(0)
+			builder = Gtk.Builder()
+			builder.add_from_file('res/result_dialog.glade')
+
+			dialog = builder.get_object('result_dialog')
+			dialog.set_transient_for(self.parent)
+			
+			srcv = builder.get_object('src')
+			buf = Gtk.TextBuffer()
+			buf.set_text(self.out_f.read())
+			srcv.set_buffer(buf)
+
+			def exit(_):
+				dialog.destroy()
+			okbtn = builder.get_object('okbtn')
+			okbtn.connect('clicked', exit)
+
+			dialog.run()
+			dialog.destroy()
+
+		self.out_f.close()
+
 	def exec_btn_clicked(self, btn):
 		if not self.status:
+			self.error_out("ERROR: Cannot perform the FASTA extract!",
+			               "You must initialize first and wait until it completes.")
 			return
+		if self.output_file_entry.get_text() == '':
+			if not self.show_dialog.get_active():
+				self.error_out("ERROR: Cannot perform the FASTA extract!",
+				               "You must either specify an output file or toggle Just Show In Dialog.")
+				return
 
+		self.execin = True
 		self.status = False
 		self.status_label.set_markup(f'<span foreground="blue">Searching, Please wait</span>')
 
-		t = Thread(target=self.reader.search, args=(self.source_view.get_buffer().get_text(),))
+		if self.show_dialog.get_active():
+			self.out_f = tempfile.TemporaryFile(mode='w+', encoding='utf-8')
+		else:
+			self.out_f = open(self.output_file_entry.get_text(), 'w+', encoding='utf-8')
+
+		script_buf = self.source_view.get_buffer()
+		t = Thread(target=self.reader.search,
+		           args=(script_buf.get_text(script_buf.get_start_iter(),
+		                                     script_buf.get_end_iter(),
+		                                     False),
+						 self.out_f,
+		                 self.match_desc.get_active(),
+		                 self.ignore_case.get_active()))
 		t.start()
 
-	def __init__(self):
+		sb = False
+		while not sb:
+			while Gtk.events_pending():
+				Gtk.main_iteration()
+				if self.execin == False:
+					self.exec_finish_cb()
+					sb = True
+					break
+
+	def __init__(self, parent):
+		self.parent = parent
 		builder = Gtk.Builder()
 		builder.add_from_file('res/fasta_extract.glade')
 
@@ -94,6 +173,8 @@ class FastaExtractUI():
 		self.thread_count_entry = builder.get_object('thread_count')
 		self.status_label = builder.get_object('status_label')
 		self.progress_bar = builder.get_object('progressbar')
+
+		self.source_view.get_buffer().set_text(def_readme)
 
 		self.outp_btn = builder.get_object('save_file_btn')
 		self.outp_btn.connect('clicked', self.outp_btn_clicked)
@@ -106,8 +187,14 @@ class FastaExtractUI():
 		self.source_file_chooser = builder.get_object('source_file')
 		self.source_file_chooser.connect('file-set', self.script_file_chose)
 
+		self.show_dialog = builder.get_object('show_in_dialog')
+		self.ignore_case = builder.get_object('ignore_case')
+		self.match_desc = builder.get_object('match_desc')
+
+		self.execin = False
+
 def sig_fasta_extract(notebook):
-	ui = FastaExtractUI()
+	ui = FastaExtractUI(notebook.get_toplevel())
 	page = notebook.append_page(ui.view, Gtk.Label(label='FASTA Extract'))
 	notebook.set_current_page(page)
 
