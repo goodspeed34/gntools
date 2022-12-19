@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-18 19:26+0800\n"
-"PO-Revision-Date: 2022-12-18 19:28+0800\n"
+"POT-Creation-Date: 2022-12-19 09:51+0800\n"
+"PO-Revision-Date: 2022-12-19 10:13+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -52,6 +52,10 @@ msgstr "自由的生物信息学工具箱"
 msgid "Case Insensitive"
 msgstr "忽略大小写"
 
+#: res/fasta_stats.glade:58
+msgid "Choose an input fasta file"
+msgstr "交互式选取输入 FASTA 文件"
+
 #: res/about.glade:9
 msgid "Copyright (C) 2022 William Goodspeed (龚志乐)"
 msgstr "版权所有 © 2022 龚志乐"
@@ -68,7 +72,7 @@ msgstr "执行"
 msgid "Extracting the FASTA file..."
 msgstr "正在解压缩 FASTA 文件……"
 
-#: fastaui.py:202
+#: fastaui.py:218
 msgid "FASTA Extract"
 msgstr "FASTA 序列提取"
 
@@ -76,11 +80,23 @@ msgstr "FASTA 序列提取"
 msgid "FASTA Extract (Recommend)"
 msgstr "FASTA 序列提取（推荐）"
 
+#: res/main.glade:71 fastaui.py:219
+msgid "FASTA Stats"
+msgstr "FASTA 统计分析"
+
 #: res/main.glade:52
 msgid "FASTA Tools"
 msgstr "FASTA 工具"
 
-#: res/fasta_extract.glade:91
+#: res/fasta_stats.glade:72
+msgid "From File"
+msgstr "从文件分析"
+
+#: res/fasta_stats.glade:106
+msgid "From Text"
+msgstr "从文本分析"
+
+#: res/fasta_extract.glade:91 res/fasta_stats.glade:214
 msgid "IDLE"
 msgstr "空闲"
 
@@ -108,7 +124,7 @@ msgstr "初始化完成，等待执行"
 msgid "Input fasta file"
 msgstr "输入 FASTA 文件"
 
-#: res/fasta_extract.glade:141
+#: res/fasta_extract.glade:141 res/fasta_stats.glade:44
 msgid "Input file: "
 msgstr "输入文件： "
 
@@ -136,6 +152,14 @@ msgstr "匹配基因描述"
 msgid "OK"
 msgstr "好"
 
+#: res/fasta_stats.glade:178
+msgid "Output Fasta Statistics:"
+msgstr "输出 FASTA 统计："
+
+#: res/fasta_stats.glade:135
+msgid "Output Fasta Stats File: "
+msgstr "输出 FASTA  统计文件： "
+
 #: res/fasta_extract.glade:152
 msgid "Output file:"
 msgstr "输出文件："
@@ -161,11 +185,15 @@ msgstr "源代码与缺陷追踪器"
 msgid "Source from file: "
 msgstr "从文件导入： "
 
+#: res/fasta_stats.glade:224
+msgid "Start"
+msgstr "开始"
+
 #: res/fasta_extract.glade:209
 msgid "Thread Count: "
 msgstr "线程数： "
 
-#: res/main.glade:155
+#: res/main.glade:164
 msgid "Welcome"
 msgstr "欢迎"
 
@@ -214,23 +242,23 @@ msgstr "你必须选定输出文件或打开“只输出到对话框”。"
 msgid "You must initialize first and wait until it completes."
 msgstr "你必须先初始化并等待其完成。"
 
-#: res/main.glade:111
+#: res/main.glade:120
 msgid "_About"
 msgstr "_关于"
 
-#: res/main.glade:79
+#: res/main.glade:88
 msgid "_BLAST"
 msgstr "_BLAST"
 
-#: res/main.glade:87
+#: res/main.glade:96
 msgid "_GO & KEGG"
 msgstr "_GO & KEGG"
 
-#: res/main.glade:95
+#: res/main.glade:104
 msgid "_Grahphics"
-msgstr "_图标"
+msgstr "_图表"
 
-#: res/main.glade:103
+#: res/main.glade:112
 msgid "_Miscellaneous"
 msgstr "_杂项"
 

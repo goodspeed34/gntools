@@ -64,6 +64,15 @@ Langfang, Hebei, PRC</property>
                                 <signal name="activate" handler="fasta_extract_activate" object="notebook" swapped="no"/>
                               </object>
                             </child>
+                            <child>
+                              <object class="GtkMenuItem">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="label" translatable="yes">FASTA Stats</property>
+                                <property name="use-underline">True</property>
+                                <signal name="activate" handler="fasta_stats_activate" object="notebook" swapped="no"/>
+                              </object>
+                            </child>
                           </object>
                         </child>
                       </object>

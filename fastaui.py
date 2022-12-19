@@ -197,11 +197,24 @@ class FastaExtractUI():
 
 		self.execin = False
 
-def sig_fasta_extract(notebook):
-	ui = FastaExtractUI(notebook.get_toplevel())
-	page = notebook.append_page(ui.view, Gtk.Label(label=_('FASTA Extract')))
-	notebook.set_current_page(page)
+class FastaStatsUI():
+	def __init__(self, parent):
+		self.parent = parent
+		builder = Gtk.Builder()
+		builder.set_translation_domain('GNtools')
+		builder.add_from_file('res/fasta_stats.glade')
+
+		self.view = builder.get_object('mainview')
+
+
+def ui_appender(klass, label):
+	def x(notebook):
+		ui = klass(notebook.get_toplevel())
+		page = notebook.append_page(ui.view, Gtk.Label(label=label))
+		notebook.set_current_page(page)
+	return x
 
 uihandlers = {
-	'fasta_extract_activate': sig_fasta_extract
+	'fasta_extract_activate': ui_appender(FastaExtractUI, _('FASTA Extract')),
+	'fasta_stats_activate': ui_appender(FastaStatsUI, _('FASTA Stats')),
 }

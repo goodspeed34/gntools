@@ -18,18 +18,6 @@ import gettext
 import locale
 from os.path import abspath, dirname, join, realpath
 
-import gi
-
-gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk, GtkSource, GObject
-
-# Register GtkSourceView
-GObject.type_register(GtkSource.View)
-
-handlers = {}
-from fastaui import uihandlers
-handlers |= uihandlers
-
 # Initialize localization
 where_am_i = abspath(dirname(realpath(__file__)))
 local_dir = join(where_am_i, 'locales')
@@ -41,6 +29,18 @@ except:
 gettext.bindtextdomain('GNtools', local_dir)
 gettext.textdomain('GNtools')
 _ = gettext.gettext
+
+import gi
+
+gi.require_version('Gtk', '3.0')
+from gi.repository import Gtk, GtkSource, GObject
+
+# Register GtkSourceView
+GObject.type_register(GtkSource.View)
+
+handlers = {}
+from fastaui import uihandlers
+handlers |= uihandlers
 
 def open_about_dialog(menu_item):
     builder = Gtk.Builder()
